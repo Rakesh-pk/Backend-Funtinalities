@@ -1,0 +1,350 @@
+[
+  {
+    "$schema": "http://localhost:97/hAutomation-schema.json",
+    "name": "Send Email (SMTP)",
+    "id": "hAutomation.Connectors.Outbond.send.mail",
+    "appliesTo": [
+      "bpmn:ServiceTask"
+    ],
+    "category": {
+      "id": "connectors",
+      "name": "Connectors"
+    },
+    "groups": [
+      {
+        "id": "Host Configuration",
+        "label": "Server Configuration"
+      },
+      {
+        "id": "Email Configuration",
+        "label": "Email Configuration"
+      },
+      {
+        "id": "output",
+        "label": "Output"
+      },
+      {
+        "id": "attachment",
+        "label": "Attachment"
+      }
+
+    ],
+    "properties": [
+      {
+        "label": "Server",
+        "description": "Enter server name",
+        "type": "String",
+        "value": "",
+        "feel": "required",
+        "binding": {
+          "type": "hAutomation:inputParameter",
+          "name": "host"
+        },
+        "group": "Host Configuration",
+        "constraints": {
+          "notEmpty": false
+        }
+      },
+      {
+        "label": "Port",
+        "description": "Please Specify Port Number",
+        "type": "String",
+        "value": "",
+        "feel": "required",
+        "binding": {
+          "type": "hAutomation:inputParameter",
+          "name": "port"
+        },
+        "group": "Host Configuration",
+        "constraints": {
+          "notEmpty": true
+        }
+      },
+      {
+        "label": "User Name",
+        "description": "Please Enter Your User Name",
+        "type": "String",
+        "value": "",
+        "feel": "required",
+        "binding": {
+          "type": "hAutomation:inputParameter",
+          "name": "username"
+        },
+        "group": "Host Configuration",
+        "constraints": {
+          "notEmpty": true,
+          "pattern": {
+            "value": "^(?:(?:\"|')[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}(?:\"|')|secVars\\.[A-Za-z_][A-Za-z0-9_]*)$",
+            "message": "Please Enter valid Email Address"
+          }
+        }
+      },
+      {
+        "label": "Password",
+        "description": "Please Enter Your Password",
+        "type": "String",
+        "value": "",
+        "feel": "optional",
+        "binding": {
+          "type": "hAutomation:inputParameter",
+          "name": "password"
+        },
+        "group": "Host Configuration",
+        "constraints": {
+          "notEmpty": true
+        }
+      },
+      {
+        "label": "Secure",
+        "id": "securetype",
+        "description": "Select security Type",
+        "type": "Dropdown",
+        "value": "\"false\"",
+        "feel": "require",
+        "choices": [
+          {
+            "name": "true",
+            "value": "\"true\""
+          },
+          {
+            "name": "false",
+            "value": "\"false\""
+          }
+        ],
+        "binding": {
+          "type": "hAutomation:inputParameter",
+          "name": "securetype"
+        },
+        "group": "Host Configuration",
+        "constraints": {
+          "notEmpty": true
+        }
+      },
+      {
+        "label": "TLS",
+        "id": "connectiontype",
+        "description": "Select Connection Type <code> <a href='/docs/connectors/Send.Mail' target='_blank'>TLS Info</a>.</code>",
+        "type": "Dropdown",
+        "value": "\"false\"",
+        "feel": "require",
+        "choices": [
+          {
+            "name": "true",
+            "value": "\"true\""
+          },
+          {
+            "name": "false",
+            "value": "\"false\""
+          }
+        ],
+        "binding": {
+          "type": "hAutomation:inputParameter",
+          "name": "connectiontype"
+        },
+        "group": "Host Configuration",
+        "constraints": {
+          "notEmpty": true
+        }
+      },
+      {
+        "label": "From Email",
+        "description": "Enter Your Email",
+        "type": "String",
+        "value": "",
+        "feel": "optional",
+        "binding": {
+          "type": "hAutomation:inputParameter",
+          "name": "from"
+        },
+        "group": "Email Configuration",
+        "constraints": {
+          "notEmpty": true,
+          "pattern": {
+            "value": "\\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}\\b",
+            "message": "Please Enter valid Email Adress"
+          }
+        }
+      },
+      {
+        "label": "Alias",
+        "description": "Your Nickname",
+        "type": "String",
+        "value": "",
+        "feel": "optional",
+        "binding": {
+          "type": "hAutomation:inputParameter",
+          "name": "alias"
+        },
+        "group": "Email Configuration"
+
+      },
+      {
+        "label": "To",
+        "description": "Enter One or More Recipient Email Address <li>['abc@mail.com','xyz@mail.com']</li>",
+        "type": "Text",
+        "value": "[]",
+        "feel": "optional",
+        "binding": {
+          "type": "hAutomation:inputParameter",
+          "name": "To"
+        },
+        "group": "Email Configuration",
+        "constraints": {
+          "notEmpty": true,
+          "pattern": {
+            "value": "\\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}\\b",
+            "message": "Please Enter valid Email Adress"
+          }
+        }
+      },
+      {
+        "label": "CC",
+        "description": "Enter One or More Recipient Email Address <li>['abc@mail.com','xyz@mail.com']</li>",
+        "type": "Text",
+        "value": "[]",
+
+        "binding": {
+          "type": "hAutomation:inputParameter",
+          "name": "cc"
+        },
+        "group": "Email Configuration",
+        "constraints": {
+          "notEmpty": true,
+          "pattern": {
+            "value": "\\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}\\b",
+            "message": "Please Enter valid Email Adress"
+          }
+        }
+      },
+      {
+        "label": "Bcc",
+        "description": "Enter One or More Recipient Email Address <li>['abc@mail.com','xyz@mail.com']</li>",
+        "type": "Text",
+        "value": "[]",
+        "feel": "optional",
+        "binding": {
+          "type": "hAutomation:inputParameter",
+          "name": "bcc"
+        },
+        "group": "Email Configuration",
+        "constraints": {
+          "notEmpty": true,
+          "pattern": {
+            "value": "\\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}\\b",
+            "message": "Please Enter valid Email Adress"
+          }
+        }
+      },
+      {
+        "label": "Subject",
+        "description": "Enter Email Subject",
+        "type": "String",
+        "value": "",
+        "feel": "optional",
+        "binding": {
+          "type": "hAutomation:inputParameter",
+          "name": "subject"
+        },
+        "group": "Email Configuration",
+        "constraints": {
+          "notEmpty": true
+        }
+      },
+      {
+        "label": "Body Type",
+        "id": "bodytype",
+        "description": "Select Email body content type:<strong>Text/HTML</strong>",
+        "type": "Dropdown",
+        "value": "",
+        "feel": "require",
+        "choices": [
+          {
+            "name": "Text",
+            "value": "\"Text\""
+          },
+          {
+            "name": "HTML",
+            "value": "\"HTML\""
+          }
+        ],
+        "binding": {
+          "type": "hAutomation:inputParameter",
+          "name": "bodychoices"
+        },
+        "group": "Email Configuration",
+        "constraints": {
+          "notEmpty": true
+        }
+      },
+      {
+        "label": "Text Body",
+        "description": "Please provide content in Plain Text",
+        "type": "Text",
+        "value": "",
+        "feel": "optional",
+        "binding": {
+          "type": "hAutomation:inputParameter",
+          "name": "textbody"
+        },
+        "group": "Email Configuration",
+        "condition": {
+          "property": "bodytype",
+          "equals": "\"Text\""
+        },
+        "constraints": {
+          "notEmpty": true
+        }
+      },
+      {
+        "label": "HTML Body",
+        "description": "Please provide content in HTML And also wrap your HTML body inside `` (backticks) i.e Below <code>Esc</code> Button in your Keyboard",
+        "type": "Text",
+        "value": "",
+        "feel": "optional",
+        "binding": {
+          "type": "hAutomation:inputParameter",
+          "name": "htmlbody"
+        },
+        "group": "Email Configuration",
+        "condition": {
+          "property": "bodytype",
+          "equals": "\"HTML\""
+        },
+        "constraints": {
+          "notEmpty": true
+        }
+      },
+      {
+        "label": "Attachment",
+        "description": "Include the file path you want to send as an email attachment Ex:['C://my/local/directory','D://my/local/directory']",
+        "type": "Text",
+        "value": "[]",
+        "feel": "optional",
+        "binding": {
+          "type": "hAutomation:inputParameter",
+          "name": "attachment"
+        },
+        "group": "attachment",
+        "constraints": {
+          "notEmpty": true
+        }
+      },
+      {
+        "label": "Result Variable",
+        "description": "Name of variable to store the response in",
+        "group": "output",
+        "type": "String",
+
+        "binding": {
+          "type": "hAutomation:outputParameter",
+          "name": "resultVariable",
+          "source": "output"
+        }
+      }
+
+    ],
+    "icon": {
+      "contents": "data:image/svg+xml,%0A%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' fill='currentColor' class='bi bi-envelope-at' viewBox='0 0 16 16'%3E%3Cpath d='M2 2a2 2 0 0 0-2 2v8.01A2 2 0 0 0 2 14h5.5a.5.5 0 0 0 0-1H2a1 1 0 0 1-.966-.741l5.64-3.471L8 9.583l7-4.2V8.5a.5.5 0 0 0 1 0V4a2 2 0 0 0-2-2H2Zm3.708 6.208L1 11.105V5.383l4.708 2.825ZM1 4.217V4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v.217l-7 4.2-7-4.2Z'/%3E%3Cpath d='M14.247 14.269c1.01 0 1.587-.857 1.587-2.025v-.21C15.834 10.43 14.64 9 12.52 9h-.035C10.42 9 9 10.36 9 12.432v.214C9 14.82 10.438 16 12.358 16h.044c.594 0 1.018-.074 1.237-.175v-.73c-.245.11-.673.18-1.18.18h-.044c-1.334 0-2.571-.788-2.571-2.655v-.157c0-1.657 1.058-2.724 2.64-2.724h.04c1.535 0 2.484 1.05 2.484 2.326v.118c0 .975-.324 1.39-.639 1.39-.232 0-.41-.148-.41-.42v-2.19h-.906v.569h-.03c-.084-.298-.368-.63-.954-.63-.778 0-1.259.555-1.259 1.4v.528c0 .892.49 1.434 1.26 1.434.471 0 .896-.227 1.014-.643h.043c.118.42.617.648 1.12.648Zm-2.453-1.588v-.227c0-.546.227-.791.573-.791.297 0 .572.192.572.708v.367c0 .573-.253.744-.564.744-.354 0-.581-.215-.581-.8Z'/%3E%3C/svg%3E"
+    }
+  }
+]
